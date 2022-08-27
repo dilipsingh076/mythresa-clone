@@ -1,0 +1,66 @@
+.parent {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding-left: 2rem;
+    padding-right: 2rem;
+    row-gap: 25px;
+    column-gap: 25px;
+    padding-top: 40px;
+  }
+  
+  .main {
+    border: 1px solid black;
+    height: 330px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    border: 2px solid grey;
+    padding: 15px;
+  }
+  .main > div:nth-child(1) {
+    height: 60%;
+  }
+  
+  .main > div:nth-child(1) > img {
+    height: 100%;
+    /* width: 100%; */
+  }
+  
+  .main > div:nth-child(2) {
+    height: 40%;
+  }
+  
+  .main > div:nth-child(2) > h2 {
+    font-size: 16px;
+  }
+  .main > div:nth-child(2) > b {
+    color: red;
+  }
+  .main > div:nth-child(2) > p {
+    color: blue;
+  }
+  
+  .cartBtn {
+    padding: 5px;
+    margin-right: 10px;
+    margin-top: 15px;
+    padding-left: 7px;
+    padding-right: 7px;
+    border: none;
+    background-color: yellowgreen;
+    border-radius: 5px;
+    color: black;
+    cursor: pointer;
+  }
+  
+  .buyBtn {
+    padding: 5px;
+    padding-left: 7px;
+    padding-right: 7px;
+    background-color: tomato;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+  }
+  

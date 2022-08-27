@@ -27,10 +27,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "server": "json-server db.json --port 8082",
-    "authserver":"json-server auth.json --port8083",
-    "loginserver":"json-server login.json --port8084"
+    "eject": "react-scripts eject"
+    
   },
   "eslintConfig": {
     "extends": [

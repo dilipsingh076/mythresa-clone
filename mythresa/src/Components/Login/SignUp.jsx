@@ -1,14 +1,14 @@
 import { RadioGroup,HStack,Radio} from "@chakra-ui/react"
 import { useState } from "react";
 import "./Signup.css";
-import { useDispatch } from "react-redux";
-import { login, userdetails } from "../../Context/AuthContext/action";
+// import { useDispatch } from "react-redux";
+// import { login, userdetails } from "../../Context/AuthContext/action";
 import Cookies from 'js-cookie';
 import React from 'react'
 
 
 export const SignUp = () => {
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
     const [Data, setData] = useState({
         firstName: "",
         lastName: "",
@@ -29,7 +29,7 @@ export const SignUp = () => {
         event.preventDefault();
 
         try {
-            let res = await fetch("http://localhost:3000/auth", {
+            let res = await fetch(`https://dilip-api.herokuapp.com/users`, {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"
@@ -38,13 +38,13 @@ export const SignUp = () => {
             });
             let user = await res.json();
             console.log(user)
-            dispatch(login(true))
-            dispatch(userdetails({
-                email: user.user.email,
-                firstName: user.user.firstName,
-                lastName: user.user.lastName,
-                token: user.token
-            }))
+            // dispatch(login(true))
+            // dispatch(userdetails({
+            //     email: user.user.email,
+            //     firstName: user.user.firstName,
+            //     lastName: user.user.lastName,
+            //     token: user.token
+            // }))
             alert(user.user.firstName, " Registered successfully");
             Cookies.set('token', user.token);
             Cookies.set('mongooseId', user.user._id)

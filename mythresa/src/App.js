@@ -1,4 +1,3 @@
-// import logo from './logo.svg';
 import './App.css';
 import React from 'react';
 import { Footer } from './Components/Footer/Footer';
@@ -12,9 +11,6 @@ function App() {
      <Web/>
      <AllRoutes/>
      
-     
-
-    
     <Footer/>
     </div>
   );

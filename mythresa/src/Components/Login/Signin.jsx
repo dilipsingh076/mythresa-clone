@@ -1,13 +1,12 @@
 import React from 'react'
 import { useState } from "react";
 import "./Signup.css";
-import { useDispatch } from "react-redux";
-import { login, userdetails } from "../../Context/AuthContext/action";
+// import { useDispatch } from "react-redux";
+// import { login, userdetails } from "../../Context/AuthContext/action";
 // import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from 'js-cookie'
-// import { ToastContainer, toast } from 'react-toastify';
-//   import 'react-toastify/dist/ReactToastify.css';
+
 
 export const Signin = () => {
    // const [read, setread] = useState({})
@@ -18,7 +17,7 @@ export const Signin = () => {
 
 
    });
-   const dispatch = useDispatch();
+   // const dispatch = useDispatch();
    // const navigate = useNavigate();
    function handleChange(e) {
       const { id, value } = e.target;
@@ -42,13 +41,13 @@ export const Signin = () => {
          );
          let d = res.data;
          console.log(d)
-         dispatch(login(true));
-         dispatch(userdetails({
-            email: d.user.email,
-            firstName: d.user.firstName,
-            lastName: d.user.lastName,
-            token: d.token
-         }))
+         // dispatch(login(true));
+         // dispatch(userdetails({
+         //    email: d.user.email,
+         //    firstName: d.user.firstName,
+         //    lastName: d.user.lastName,
+         //    token: d.token
+         // }))
          alert("Login successfully")
          Cookies.set('token', d.token);
          Cookies.set('mongooseId', d.user._id)
