@@ -5,22 +5,21 @@ import { AppContext } from "../Context/AuthContext/AppContext";
 
 export const SingleProductCard = ({
   id,
-  title,
+  name,
   handleAddToCartProduct,
   price,
-  description,
-  category,
-  image
+  brandName,
+  images
 }) => {
   const { isAuth, handleQuiCkBuy } = useContext(AppContext);
   const navigate = useNavigate();
 
   const handleAddToCart = () => {
     if (isAuth.auth) {
-      //navigate("/cart");
+      navigate("/Cart");
       handleAddToCartProduct(id);
     } else {
-      navigate("/login");
+      navigate("/Cart");
     }
   };
 
@@ -28,11 +27,11 @@ export const SingleProductCard = ({
     if (isAuth.auth) {
       const payload = {
         id,
-        title,
+        name,
         price,
-        description,
-        category,
-        image
+      
+        brandName,
+        images
       };
       handleQuiCkBuy(payload);
 
@@ -50,12 +49,12 @@ export const SingleProductCard = ({
     // className={style.main}
     <div >
       <div onClick={handheVisitSingleProduct}>
-        <img src={image} alt={title} />
+        <img src={images} alt={name} />
       </div>
       <div>
-        <h2>{title}</h2>
+        <h2>{name}</h2>
         <b>Price: {price}</b>
-        <p>Category : {category}</p>
+        <p>brandName : {brandName}</p>
         {/* className={style.cartBtn} */}
         <button onClick={handleAddToCart}>
           Add To cart

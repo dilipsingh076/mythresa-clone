@@ -1,3 +1,4 @@
+import { SimpleGrid } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "../Context/AuthContext/AppContext";
@@ -32,9 +33,10 @@ export const SingleProductPage = () => {
   const addToCart = () => {
     if (isAuth.auth) {
       addCartContext(data);
-      navigate("/product");
+      navigate("/Products");
     } else {
-      navigate("/login");
+      // navigate("/login");
+      navigate("/Cart");
     }
   };
 
@@ -53,17 +55,18 @@ export const SingleProductPage = () => {
 
   return (
     <div>
+    <SimpleGrid columns={2} spacing={10} >
       <div>
         <img
-          src={data[0].image}
-          alt={data[0].title}
+          src={data[0].images}
+          alt={data[0].name}
           width="80%"
           height="520px"
         />
       </div>
       <div>
         <h1>{data[0].title}</h1>
-        <h2>{data[0].description}</h2>
+        <h2>{data[0].brandName}</h2>
       </div>
       <br />
       <br />
@@ -72,6 +75,7 @@ export const SingleProductPage = () => {
         <button onClick={addToCart}>Add To cart</button>
         <button onClick={buyNow}>Buy Now</button>
       </div>
+      </SimpleGrid>
     </div>
   );
 };

@@ -4,6 +4,10 @@ import { SingleProductCard } from "./SingleProductCard";
 // import style from "./SingleProductCard.module.css";
 
 import { AppContext } from "../Context/AuthContext/AppContext";
+import { SimpleGrid } from "@chakra-ui/react";
+
+
+
 
 export const Products = () => {
   const [data, setData] = useState([]);
@@ -24,6 +28,7 @@ export const Products = () => {
       })
       .catch((err) => {
         setIsError(true);
+        console.log(err)
       });
   }, []);
 
@@ -45,13 +50,16 @@ export const Products = () => {
   return (
     // className={style.parent}
     <div >
-      {data?.map((el) => (
+    <SimpleGrid columns={4} spacing={10} >
+    {data?.map((el) => (
         <SingleProductCard
           key={el.id}
           {...el}
           handleAddToCartProduct={handleAddToCartProduct}
         />
       ))}
+    </SimpleGrid>
+    
     </div>
   );
 };

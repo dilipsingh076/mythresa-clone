@@ -1,62 +1,82 @@
 import React from 'react'
 import { useState } from "react";
 import "./Signup.css";
-// import { useDispatch } from "react-redux";
-// import { login, userdetails } from "../../Context/AuthContext/action";
-// import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import Cookies from 'js-cookie'
-
+import {toast }from 'react-toastify'
+import { useNavigate } from 'react-router-dom';
 
 export const Signin = () => {
-   // const [read, setread] = useState({})
-   const [Data, setData] = useState({
+  
+   const [input, setinput] = useState({
 
       email: "",
       password: "",
 
 
    });
-   // const dispatch = useDispatch();
-   // const navigate = useNavigate();
+   const [data, setdata] = useState([])
+
+   const navigate = useNavigate();
    function handleChange(e) {
       const { id, value } = e.target;
 
-      setData({
-         ...Data,
-         [id]: value
+      setinput(() => {
+         return {
+            ...input,
+            [id]: value
+         }
       })
+}
 
-   }
 
-
-   const handleSubmit = async (e) => {
+   const handlelogin =  (e) => {
       e.preventDefault();
 
-      try {
-         const res = await axios.post(
-            "http://localhost:3000/login",
-            Data
+      const getuserArr = localStorage.getItem("useryoutube");
+        // console.log(getuserArr);
 
-         );
-         let d = res.data;
-         console.log(d)
-         // dispatch(login(true));
-         // dispatch(userdetails({
-         //    email: d.user.email,
-         //    firstName: d.user.firstName,
-         //    lastName: d.user.lastName,
-         //    token: d.token
-         // }))
-         alert("Login successfully")
-         Cookies.set('token', d.token);
-         Cookies.set('mongooseId', d.user._id)
+        const { email, password } = input;
+        if (email === "") {
+            toast.error('Email Field Is Requred', {
+                position: "top-center",
+            });
+        } else if (!email.includes("@")) {
+            toast.error('Plz Enter Valid Email Addres', {
+                position: "top-center",
+            });
+        } else if (password === "") {
+            toast.error('Password Field Is Requred', {
+                position: "top-center",
+            });
+        } else if (password.length < 5) {
+            toast.error('Password Length Greater Five', {
+                position: "top-center",
+            });
+        } else {
+
+            if (getuserArr && getuserArr.length) {
+                const userdata = JSON.parse(getuserArr);
+                const userlogin = userdata.filter((el, k) => {
+                    return el.email === email && el.password === password
+                });
+
+                if (userlogin.length === 0) {
+                    alert("invalid details")
+                } else {
+                    alert("user login succesfulyy");
+                    navigate("/")
+                    toast.error('Login Successfull', {
+                        position: "top-center",
+                    });
+
+                    localStorage.setItem("user_login", JSON.stringify(userlogin))
+
+                }
+            }
+        }
 
 
-      } catch (error) {
-         alert(error.response.data.message)
-      }
 
+      
    };
 
 
@@ -66,7 +86,7 @@ export const Signin = () => {
          <h3>ALREADY REGISTERED?</h3>
          <p>If you have an account with us, please log in.</p>
 
-         <form onSubmit={handleSubmit}>
+         <form >
 
 
             <input id="email" className='login_reg' onChange={handleChange} placeholder="Email" type="email" required />
@@ -75,7 +95,8 @@ export const Signin = () => {
             <br />
             <p>*Required fields</p>
             <p>Forgot Your Password?</p>
-            <input className="button" type="submit" value="LOGIN" />
+            <button type='submit' onClick={handlelogin} >Login</button>
+            {/* <input className="button" type="submit" value="LOGIN" /> */}
             <p>
                At Mytheresa, we keep your information secure. As a result, it will be<br />
                necessary for you to log in to your account before you are able to place an <br />

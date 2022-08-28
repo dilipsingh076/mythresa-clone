@@ -1,64 +1,83 @@
 import { RadioGroup,HStack,Radio} from "@chakra-ui/react"
 import { useState } from "react";
 import "./Signup.css";
-// import { useDispatch } from "react-redux";
-// import { login, userdetails } from "../../Context/AuthContext/action";
-import Cookies from 'js-cookie';
+
+import {toast} from "react-toastify"
 import React from 'react'
+import { useNavigate } from "react-router-dom";
 
 
 export const SignUp = () => {
     // const dispatch = useDispatch()
-    const [Data, setData] = useState({
+    const navigateTowards = useNavigate()
+    const [input, setinput] = useState({
         firstName: "",
         lastName: "",
         email: "",
         password: "",
+       
 
 
     });
+
+    const [data,setData] = useState([])
+    console.log(input)
+
+
     function handleChange(e) {
         const { id, value } = e.target;
 
-        setData({...Data,[id]: value})
+        setinput(()=>
+       {return{...input,[id]: value}})
 
     }
 
 
     async function handleSubmit(event) {
         event.preventDefault();
+        const { firstName,lastName, email, password} = input;
 
-        try {
-            let res = await fetch(`https://dilip-api.herokuapp.com/users`, {
-                method: "POST",
-                headers: {
-                    "content-type": "application/json"
-                },
-                body: JSON.stringify(Data),
+        if (firstName === "") {
+            toast.error(' Name field is requred!',{
+                position: "top-center",
             });
-            let user = await res.json();
-            console.log(user)
-            // dispatch(login(true))
-            // dispatch(userdetails({
-            //     email: user.user.email,
-            //     firstName: user.user.firstName,
-            //     lastName: user.user.lastName,
-            //     token: user.token
-            // }))
-            alert(user.user.firstName, " Registered successfully");
-            Cookies.set('token', user.token);
-            Cookies.set('mongooseId', user.user._id)
-        } catch (error) {
-            alert("Please check user details ")
-            console.log(error)
         }
+       else if (lastName === "") {
+            toast.error(' Name field is requred!',{
+                position: "top-center",
+            });
+        }
+         else if (email === "") {
+             toast.error('Email field is requred',{
+                position: "top-center",
+            });
+        } else if (!email.includes("@")) {
+             toast.error('plz enter valid email addres',{
+                position: "top-center",
+            });
+        }  else if (password === "") {
+             toast.error('password field is requred',{
+                position: "top-center",
+            });
+        } else if (password.length < 5) {
+             toast.error('password length greater five',{
+                position: "top-center",
+            });
+        } else {
+           alert("Sign up succesfully");
+            navigateTowards("/Login_Signup")
+            localStorage.setItem("useryoutube",JSON.stringify([...data,input]));
+
+        }
+
+       
     }
     return (
         <div className="Input" >
             <h3>CREATE AN ACCOUNT</h3>
             <p>Please enter the following information to create your account.</p>
-
-            <form onSubmit={handleSubmit}>
+            {/* onSubmit={handleSubmit} */}
+            <form >
                 <RadioGroup>
                     <HStack spacing='24px'>
                         <Radio value='Ms.'>Ms.</Radio>
@@ -91,10 +110,12 @@ export const SignUp = () => {
                     emailing privacy@mytheresa.com.
 
                 </p>
+                <button onClick={handleSubmit} type={"submit"} >Submit</button>
 
-                <input className="button" type="submit" value="REGISTER" />
+                {/* <input className="button" type="submit" value="REGISTER" /> */}
                 
             </form>
+            
         </div>
 
     )

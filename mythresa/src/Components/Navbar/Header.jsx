@@ -13,7 +13,7 @@ const link = [
         title : "women"
     },
     {
-        path : "/men",
+        path : "/Products",
         title : "men"
     },
     {
@@ -61,7 +61,7 @@ function Header() {
             </div >
             <div className='div'>
                 <img className='img' src='https://www.mytheresa.com/skin/frontend/mytheresa/default/images/logo.png?v=20220503T161145' alt="image" />
-                <p className='cart-pointer' onClick={() => { window.location.href = "/cart" }}>SHOPPING BAG</p><i style={{ marginTop: "0px", marginLeft: "10px", marginRight: "40px" }} className="fi fi-rr-shopping-bag"></i>
+                <p className='cart-pointer' onClick={() => { window.location.href = "/Cart" }}>SHOPPING BAG</p><i style={{ marginTop: "0px", marginLeft: "10px", marginRight: "40px" }} className="fi fi-rr-shopping-bag"></i>
             </div>
         </div>
 
